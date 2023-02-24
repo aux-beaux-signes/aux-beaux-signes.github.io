@@ -76,7 +76,7 @@ body {
         height: var(--size-months);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: space-around;
         border-radius: 0.65em;
         overflow: hidden;
         pointer-events: all;
