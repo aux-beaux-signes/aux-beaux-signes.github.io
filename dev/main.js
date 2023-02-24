@@ -15,7 +15,8 @@ function toggleClass(el, c, state) {
 
 // CALENDAR
 const calendarContainer = document.querySelector(".calendar"),
-      calendarMonths = Object.values(calendarContainer.children).reverse();
+      calendarMonths = Object.values(calendarContainer.children).reverse(),
+      monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",  "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
 function selectMonth() {
     // reset months
@@ -51,6 +52,7 @@ function secretCreate(secretIndex) {
     secretContainer.innerHTML = secretData.monogram + secretData.code;
     document.documentElement.setAttribute("secret", secretIndex);
     selectMonth();
+    document.title = "Aux beaux signes · "+ monthNames[secretIndex - 1];
 }
 
 // get the current month
