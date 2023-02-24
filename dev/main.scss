@@ -52,13 +52,63 @@ body {
 }
 
 
+.calendar {
+    z-index: 10;
+    --size-months: 3.5em;
+    // display: grid;
+    // grid-template-columns: repeat(12, var(--size-months));
+    // grid-template-rows: repeat(12, var(--size-months));
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1.5em 1.2em;
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 0.2em;
+    margin: 4rem;
+
+    > * {
+        flex-shrink: 0;
+        width: var(--size-months);
+        height: var(--size-months);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 0.65em;
+        overflow: hidden;
+        pointer-events: all;
+        outline: 2px solid transparent;
+        transition: outline-color 0.4s ease;
+        cursor: crosshair;
+
+        &:hover, &:hover ~ * {
+            outline-color: rgba(0, 0, 0, 0.25);
+            transition: outline-color 0.1s ease;
+        }
+
+        &.active {
+            background-color: #000;
+            border-radius: 10em;
+        }
+
+
+        > * {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+        }
+    }
+}
+
+
 .info-container {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     position: fixed;
-    right: 1em;
-    bottom: 1em;
+    right: 4rem;
+    bottom: 4rem;
     text-align: right;
 
     .btn {
@@ -161,22 +211,18 @@ main {
         font-size: 0.6em;
         margin-top: 2em;
 
-        transform: translateY(1.5em);
-        opacity: 0;
-        transition: opacity 0.3s ease,
-                    transform 0.75s ease;
-        &.opened {
-            transform: translateY(0);
-            opacity: 1;
-            transition: opacity 0.4s ease,
-                        transform 0.5s ease;
-        }
-
         > * {
+            --delay-add: 0;
             display: inline-flex;
             flex-direction: row;
             align-items: center;
             margin-top: 0.25em;
+
+            opacity: 0;
+            transform: translateY(1.5em);
+            transition: opacity 0.3s ease,
+                        transform 0.75s ease;
+            transition-delay: 0s;
 
             &:not(:last-child) {
                 margin-right: 1.25em;
@@ -195,6 +241,17 @@ main {
                 flex-shrink: 0;
                 font-size: 0.7em;
                 font-weight: 475;
+            }
+        }
+
+        &.opened {
+
+            > * {
+                transform: translateY(0);
+                opacity: 1;
+                transition: opacity 0.4s ease,
+                            transform 0.4s ease;
+                transition-delay: calc(var(--delay-add) * 1s);
             }
         }
     }
